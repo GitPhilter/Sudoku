@@ -55,7 +55,7 @@ public abstract class IntegerHelper {
         for(int i = 0; i < temp.size(); i++){
             for(int r = 0; r < result.size(); r++){
                 if(result.get(r).intValue() == temp.get(i).intValue()){
-                    System.out.println(temp.get(i).intValue() + " not allowed in line " + lineIndex);
+                    //System.out.println(temp.get(i).intValue() + " not allowed in line " + lineIndex);
                     result.remove(r);
                     r--;
                 }
@@ -67,7 +67,7 @@ public abstract class IntegerHelper {
         for(int i = 0; i < temp.size(); i++){
             for(int r = 0; r < result.size(); r++){
                 if(result.get(r).intValue() == temp.get(i).intValue()){
-                    System.out.println(temp.get(i).intValue() + " not allowed in column " + columnIndex);
+                    //System.out.println(temp.get(i).intValue() + " not allowed in column " + columnIndex);
                     result.remove(r);
                     r--;
                 }
@@ -79,7 +79,7 @@ public abstract class IntegerHelper {
         for(int i = 0; i < temp.size(); i++){
             for(int r = 0; r < result.size(); r++){
                 if(result.get(r).intValue() == temp.get(i).intValue()){
-                    System.out.println(temp.get(i).intValue() + " not allowed in field " + fieldIndex);
+                    //System.out.println(temp.get(i).intValue() + " not allowed in field " + fieldIndex);
                     result.remove(r);
                     r--;
                 }

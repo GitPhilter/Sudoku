@@ -2,52 +2,72 @@ package completion;
 import game.*;
 import rules.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class RandomFiller {
-    private static boolean searching;
-    private static Board solution;
+public  class RandomFiller {
+    private boolean searching;
+    private Board solution;
+    CellTupleSort cellTupleSort;
 
-    public static void fillBoard(Board board){
-        board.printBoard();
+    public RandomFiller(){
+    cellTupleSort = new CellTupleSort();
+    }
+
+    public void fillBoard(Board board){
+        //board.printBoard();
         if(Rules.isWinningBoard(board)){
             System.out.print("The given board is already completed! :D");
         } else {
-            fillBoardRecursion(board, true);
+            fillBoardRecursion(board, true, 0);
         }
-        System.out.println("The solution is:");
-        solution.printBoard();
+        if(solution != null) {
+            System.out.println("The solution is:");
+            solution.printBoard();
+        } else {
+            System.out.println("No Solution found! Me is-a sorry!");
+        }
     }
 
-    public static void fillBoardRecursion(Board board, boolean s){
+    public void fillBoardRecursion(Board board, boolean s, int recursionDepth){
+        searching = s;
+        recursionDepth++;
+        System.out.println("RecursionDepth: " + recursionDepth);
+        if(Rules.isWinningBoard(board)){
+            searching = false;
+            solution = board.getCopy();
+        }
         //Scanner scanner = new Scanner(System.in);
         //scanner.nextLine();
-        searching = s;
-        board.printBoard();
+        //board.printBoard();
         ArrayList<Integer> possibleIDs = board.getEmptyCellIDs();
-        while(possibleIDs.size() > 0 && searching){
-            board.printBoard();
-            System.out.println("there are " + possibleIDs.size() + " possible IDs.");
-            int randomIndex = (int) (Math.random() * (possibleIDs.size() - 1));
-            System.out.println("cell no. " + possibleIDs.get(randomIndex) + " has been chosen.");
-            ArrayList<Integer> possibleIntegers = IntegerHelper.getPossibleIntegers(board, possibleIDs.get(randomIndex));
-            while(possibleIntegers.size() > 0 && searching){
-                System.out.println("There are " + possibleIntegers.size() + " possible Integers");
-                int randomIntegerIndex = (int)(Math.random() * (possibleIntegers.size() - 1));
-                System.out.println("Integer-value no. " + possibleIntegers.get(randomIntegerIndex) + " has been chosen.");
-                board.setCellValue(possibleIDs.get(randomIndex), possibleIntegers.get(randomIntegerIndex));
-                possibleIntegers.remove(randomIntegerIndex);
-                if(Rules.isWinningBoard(board)){
-                    searching = false;
-                    solution = board.getCopy();
-                } else {
-                    fillBoardRecursion(board, true);
-                    board.setCellValue(possibleIDs.get(randomIndex), 0);
-                }
-            }
-            possibleIDs.remove(randomIndex);
+        ArrayList<CellTuple> cellTuples = new ArrayList<CellTuple>();
+        for(int i = 0; i < possibleIDs.size(); i++){
+            cellTuples.add(new CellTuple(board, possibleIDs.get(i)));
+            //cellTuples.get(i).printCellTuple();
         }
+        cellTupleSort.sortCellTuples(cellTuples);
+        boolean solvable = true;
+        while (searching && solvable){
+            /*
+            System.out.println("CellTuples sorted: ");
+            for(int i = 0; i < cellTuples.size(); i++){
+                cellTuples.get(i).printCellTuple();
+            }
+            */
+            if(cellTuples.get(0).getPossibleIntegers().size() == 0){
+                //System.out.println("This shit is not solvable!!11elf");
+                solvable = false;
+            } else{
+                board.setCellValue(cellTuples.get(0).getCellID(), cellTuples.get(0).possibleIntegers.get(0));
+                fillBoardRecursion(board, searching, recursionDepth);
+                board.setCellValue(cellTuples.get(0).getCellID(), 0);
+                cellTuples.get(0).possibleIntegers.remove(0);
+            }
+        }
+
+
 
 
     }
