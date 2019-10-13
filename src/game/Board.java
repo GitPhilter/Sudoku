@@ -130,4 +130,12 @@ public class Board {
         return result;
     }
 
+    public Board getCopy(){
+        Board copy = new Board();
+        for(int i = 0; i < 81; i++){
+            copy.setCellValue(i, this.cells.get(i).value);
+        }
+        return copy;
+    }
+
 }

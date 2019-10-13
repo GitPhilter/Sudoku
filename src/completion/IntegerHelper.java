@@ -43,7 +43,7 @@ public abstract class IntegerHelper {
             fieldIndex = 4;
         } else if(id == 33 || id == 34 || id == 35 || id == 42 || id == 43 || id == 44 || id == 51 || id == 52 || id == 53){
             fieldIndex = 5;
-        } else if(id == 54 || id == 55 || id == 56 || id == 12 || id == 13 || id == 14 || id == 21 || id == 22 || id == 23){
+        } else if(id == 54 || id == 55 || id == 56 || id == 63 || id == 64 || id == 65 || id == 72 || id == 73 || id == 74){
             fieldIndex = 6;
         } else if(id == 57 || id == 58 || id == 59 || id == 66 || id == 67 || id == 68 || id == 75 || id == 76 || id == 77){
             fieldIndex = 7;
