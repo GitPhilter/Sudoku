@@ -16,14 +16,15 @@ public  class RandomFiller {
     }
 
     public void fillBoard(Board board){
-        //board.printBoard();
+        System.out.println("Trying to solve the following Sudoku:");
+        board.printBoard();
         if(Rules.isWinningBoard(board)){
             System.out.print("The given board is already completed! :D");
         } else {
             fillBoardRecursion(board, true, 0);
         }
         if(solution != null) {
-            System.out.println("The solution is:");
+            System.out.println("The random solution is:");
             solution.printBoard();
         } else {
             System.out.println("No Solution found! Me is-a sorry!");
@@ -33,7 +34,7 @@ public  class RandomFiller {
     public void fillBoardRecursion(Board board, boolean s, int recursionDepth){
         searching = s;
         recursionDepth++;
-        System.out.println("RecursionDepth: " + recursionDepth);
+        //System.out.println("RecursionDepth: " + recursionDepth);
         if(Rules.isWinningBoard(board)){
             searching = false;
             solution = board.getCopy();

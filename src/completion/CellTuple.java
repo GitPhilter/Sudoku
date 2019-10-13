@@ -4,6 +4,7 @@ import game.Board;
 import game.Cell;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CellTuple {
     private int CellID;
@@ -12,6 +13,7 @@ public class CellTuple {
     public CellTuple(Board board, int cellID){
         CellID = cellID;
         possibleIntegers = IntegerHelper.getPossibleIntegers(board, CellID);
+        Collections.shuffle(possibleIntegers);
     }
 
     public CellTuple(CellTuple cellTuple){
